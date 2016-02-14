@@ -1,0 +1,136 @@
+//
+//  TweetsViewController.swift
+//  Twitter-490
+//
+//  Created by Akshat Goyal on 2/11/16.
+//  Copyright © 2016 akshat. All rights reserved.
+//
+
+import UIKit
+
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var tweets: [Tweet]?
+    @IBOutlet weak var tableView: UITableView!
+//    var isMoreDataLoading = false
+//    var pages: Int = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
+        let image = UIImageView(image: UIImage(named: "Twitter_logo"))
+        self.navigationItem.titleView = image
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
+        
+        // Do any additional setup after loading the view.
+        
+        //pages = 20
+        TwitterClient.sharedInstance.homeTimeLineWithParams(nil, completion: { (tweets, error) -> () in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        })
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func onLogout(sender: AnyObject) {
+        User.currentUser?.logout()
+    }
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        
+        if let tweets = tweets {
+            let tweet = tweets[indexPath.row]
+            let user = tweet.user
+            cell.usernameLabel.text = user?.name
+            cell.profileImage.setImageWithURL(NSURL(string: (user?.profileImageUrl)!)!)
+            cell.screenName.text = user?.screenName
+            cell.tweetLabel.text = tweet.text
+            
+            let time = Int((tweet.createdAt?.timeIntervalSinceNow)!)
+            cell.timeLabel.text = "\(-time/3600)h"
+        
+            if tweet.retweeted! {
+                cell.retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: .Normal)
+                cell.retweetCountLabel.textColor = UIColor(red: 0, green: 207/255.0, blue: 141/255.0, alpha: 1)
+                cell.retweetCountLabel.text = "\(tweet.retweetCount!)"
+            } else {
+                cell.retweetButton.setImage(UIImage(named: "retweet-action"), forState: .Normal)
+                cell.retweetCountLabel.textColor = UIColor(red: 169/255.0, green: 184/255.0, blue: 193/255.0, alpha: 1)
+                cell.retweetCountLabel.text = "\(tweet.retweetCount!)"
+            }
+            
+            if  tweet.liked! {
+                cell.likeButton.setImage(UIImage(named: "like-action-on"), forState: .Normal)
+                cell.likeCountLabel.textColor = UIColor(red: 238/255.0, green: 22/255.0, blue: 79/255.0, alpha: 1)
+                cell.likeCountLabel.text = "\(tweet.likeCount!)"
+            } else {
+                cell.likeButton.setImage(UIImage(named: "like-action"), forState: .Normal)
+                cell.likeCountLabel.textColor = UIColor(red: 169/255.0, green: 184/255.0, blue: 193/255.0, alpha: 1)
+                cell.likeCountLabel.text = "\(tweet.likeCount!)"
+            }
+            
+            
+            cell.tweet = tweet
+        }
+        
+        cell.backgroundColor = UIColor(red: 58/255.0, green: 71/255.0, blue: 80/255.0, alpha: 1)
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let tweets = tweets {
+            return tweets.count
+        } else {
+            return 0
+        }
+    }
+    
+//    func loadMoreData() {
+//        let parameters = NSMutableDictionary()
+//        pages += 20
+//        parameters["count"] = pages
+//        
+//        TwitterClient.sharedInstance.homeTimeLineWithParams(parameters, completion: { (tweets, error) -> () in
+//            self.tweets = tweets
+//            self.tableView.reloadData()
+//        })
+//    }
+//    
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        if (!isMoreDataLoading) {
+//            
+//            let scrollViewContentHeight = tableView.contentSize.height
+//            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+//            
+//            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+//                isMoreDataLoading = true
+//                //self.pages++
+//                self.loadMoreData()
+//                self.isMoreDataLoading = false
+//            }
+//        }
+//    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
