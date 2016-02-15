@@ -86,8 +86,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Twitter-490/AFNetworking.framework"
   install_framework "Pods-Twitter-490/BDBOAuth1Manager.framework"
+  install_framework "Pods-Twitter-490/DGElasticPullToRefresh.framework"
+  install_framework "Pods-Twitter-490/SVPullToRefresh.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Twitter-490/AFNetworking.framework"
   install_framework "Pods-Twitter-490/BDBOAuth1Manager.framework"
+  install_framework "Pods-Twitter-490/DGElasticPullToRefresh.framework"
+  install_framework "Pods-Twitter-490/SVPullToRefresh.framework"
 fi

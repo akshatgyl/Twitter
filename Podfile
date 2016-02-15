@@ -5,6 +5,8 @@ use_frameworks!
 
 pod “AFNetworking”
 pod “BDBOAuth1Manager”
+pod "DGElasticPullToRefresh"
+pod 'SVPullToRefresh'
 
 target 'Twitter-490' do
 

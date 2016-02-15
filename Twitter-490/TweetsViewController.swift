@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import DGElasticPullToRefresh
+import SVPullToRefresh
 
 class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -30,10 +32,43 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         // Do any additional setup after loading the view.
         
         //pages = 20
+        
+        tableView.addInfiniteScrollingWithActionHandler { () -> Void in
+            let lastTweet = self.tweets![self.tweets!.count-1]
+            let lastID = lastTweet.id
+            let parameters:NSDictionary = ["max_id": lastID!]
+            TwitterClient.sharedInstance.homeTimeLineWithParams(parameters, completion: { (tweets, error) -> Void in
+                for tweet in tweets! {
+                    if (tweet.id == lastID) {
+                        continue
+                    }
+                    self.tweets?.append(tweet)
+                }
+                self.tableView.reloadData()
+                self.tableView.infiniteScrollingView.stopAnimating()
+            })
+        }
+        
+        
         TwitterClient.sharedInstance.homeTimeLineWithParams(nil, completion: { (tweets, error) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
         })
+        
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0)
+        tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
+            
+            TwitterClient.sharedInstance.homeTimeLineWithParams(nil, completion: { (tweets, error) -> () in
+                self!.tweets = tweets
+                self!.tableView.reloadData()
+            })
+            
+            self?.tableView.dg_stopLoading()
+            }, loadingView: loadingView)
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 0/255.0, green: 173/255.0, blue: 181/255.0, alpha: 1.0))
+        tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,8 +93,12 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             cell.tweetLabel.text = tweet.text
             
             let time = Int((tweet.createdAt?.timeIntervalSinceNow)!)
-            cell.timeLabel.text = "\(-time/3600)h"
-        
+            if (-time/3600) == 0 {
+                cell.timeLabel.text = "\(-time/60)m"
+            } else {
+                cell.timeLabel.text = "\(-time/3600)h"
+            }
+            
             if tweet.retweeted! {
                 cell.retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: .Normal)
                 cell.retweetCountLabel.textColor = UIColor(red: 0, green: 207/255.0, blue: 141/255.0, alpha: 1)
@@ -84,7 +123,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             cell.tweet = tweet
         }
         
-        cell.backgroundColor = UIColor(red: 58/255.0, green: 71/255.0, blue: 80/255.0, alpha: 1)
+        cell.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
         return cell
     }
     
@@ -95,33 +134,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             return 0
         }
     }
-    
-//    func loadMoreData() {
-//        let parameters = NSMutableDictionary()
-//        pages += 20
-//        parameters["count"] = pages
-//        
-//        TwitterClient.sharedInstance.homeTimeLineWithParams(parameters, completion: { (tweets, error) -> () in
-//            self.tweets = tweets
-//            self.tableView.reloadData()
-//        })
-//    }
-//    
-//    func scrollViewDidScroll(scrollView: UIScrollView) {
-//        if (!isMoreDataLoading) {
-//            
-//            let scrollViewContentHeight = tableView.contentSize.height
-//            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
-//            
-//            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
-//                isMoreDataLoading = true
-//                //self.pages++
-//                self.loadMoreData()
-//                self.isMoreDataLoading = false
-//            }
-//        }
-//    }
-    
 
     /*
     // MARK: - Navigation
@@ -133,4 +145,11 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     */
 
+}
+
+
+extension UIScrollView {
+    // to fix a problem where all the constraints of the tableview
+    // are deleted
+    func dg_stopScrollingAnimation() {}
 }

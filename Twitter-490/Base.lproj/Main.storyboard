@@ -16,10 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPO-MC-9s0">
-                                <rect key="frame" x="99" y="269" width="122" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPO-MC-9s0">
+                                <rect key="frame" x="20" y="253" width="280" height="62"/>
                                 <animations/>
-                                <state key="normal" title="Login with Twitter"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="62" id="47F-Qd-KGj"/>
+                                    <constraint firstAttribute="width" constant="280" id="SFk-FP-IEW"/>
+                                </constraints>
+                                <state key="normal" title="Login with Twitter" image="sign-in-button"/>
                                 <connections>
                                     <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eZl-go-hHF"/>
                                 </connections>
@@ -38,12 +42,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206.93333333333334" y="327.07333333333332"/>
+            <point key="canvasLocation" x="206" y="327"/>
         </scene>
         <!--Tweets View Controller-->
         <scene sceneID="6T7-yb-UOc">
             <objects>
-                <viewController storyboardIdentifier="TweetsViewController" id="693-0Y-vrt" customClass="TweetsViewController" customModule="Twitter_490" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="693-0Y-vrt" customClass="TweetsViewController" customModule="Twitter_490" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nnu-fL-ywP"/>
                         <viewControllerLayoutGuide type="bottom" id="KIb-tP-14c"/>
@@ -69,7 +73,7 @@
                                                     <rect key="frame" x="81" y="8" width="67" height="17"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.67843137254901964" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.22745098039215686" green="0.27843137254901962" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="75V-us-wfS">
@@ -84,21 +88,21 @@
                                                     <rect key="frame" x="156" y="8" width="77" height="17"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.67843137254901964" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.22745098039215686" green="0.27843137254901962" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3d" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfT-HK-fDT">
                                                     <rect key="frame" x="295" y="9" width="17" height="17"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.67843137254901964" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.22745098039215686" green="0.27843137254901962" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tweet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6b-jb-Q9d">
                                                     <rect key="frame" x="81" y="32" width="40" height="18"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                    <color key="textColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.22745098039215686" green="0.27843137254901962" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cia-7e-VlI">
@@ -220,7 +224,7 @@
         <!--Navigation Controller-->
         <scene sceneID="bkO-Ve-jQP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mq8-TX-Bmu" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TweetsViewController" automaticallyAdjustsScrollViewInsets="NO" id="Mq8-TX-Bmu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yy5-Yc-QbX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -241,5 +245,6 @@
     <resources>
         <image name="like-action" width="54" height="72"/>
         <image name="retweet-action" width="75" height="72"/>
+        <image name="sign-in-button" width="274" height="62"/>
     </resources>
 </document>

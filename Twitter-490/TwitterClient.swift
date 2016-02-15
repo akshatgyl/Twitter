@@ -33,6 +33,7 @@ class TwitterClient: BDBOAuth1SessionManager {
                 //print(response)
                 let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
                 completion(tweets: tweets, error: nil)
+                print("got timeline")
             }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 print(error)
                 completion(tweets: nil, error: error)
