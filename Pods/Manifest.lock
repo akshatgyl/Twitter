@@ -16,19 +16,28 @@ PODS:
     - AFNetworking/NSURLSession
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
+  - CSStickyHeaderFlowLayout (0.2.10)
   - DGElasticPullToRefresh (1.0.3)
+  - EGFloatingTextField (0.0.1):
+    - PureLayout (~> 2.0)
+  - PureLayout (2.0.6)
   - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - CSStickyHeaderFlowLayout
   - DGElasticPullToRefresh
+  - EGFloatingTextField
   - SVPullToRefresh
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
+  CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DGElasticPullToRefresh: 040f39ae69840b3261d163fe6735c5901bf851e9
+  EGFloatingTextField: a08579d7df26d6c101031a854b462de2350b4095
+  PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
 COCOAPODS: 0.39.0

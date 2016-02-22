@@ -38,7 +38,19 @@ class TwitterClient: BDBOAuth1SessionManager {
                 print(error)
                 completion(tweets: nil, error: error)
         })
-        
+    }
+    
+    func replyToTweet(content:String, id:String, completion:(success:Bool)->Void){
+        let parameter = ["status":content,"in_reply_to_status_id":id]
+        print(id)
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: parameter, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            print("replied")
+            completion(success: true)
+            }) { (task:NSURLSessionDataTask?, error:NSError) -> Void in
+                print("error replying")
+                print(error)
+                completion(success: false)
+        }
     }
     
     
@@ -60,6 +72,22 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    
+    func postTweet(status: String, completion: (error: NSError?)-> ()) {
+        let parameters = NSMutableDictionary()
+        parameters["status"] = status
+        
+        POST("1.1/statuses/update.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            completion(error: nil)
+            print("posted")
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                completion(error: error)
+                print("error posting")
+                print(error)
+        }
+    
+    
+    }
     
     func retweet(ID: String, completion: (response: NSDictionary?, error: NSError?) -> ()) {
         POST("https://api.twitter.com/1.1/statuses/retweet/\(ID).json", parameters: nil, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in

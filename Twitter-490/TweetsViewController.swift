@@ -11,15 +11,16 @@ import DGElasticPullToRefresh
 import SVPullToRefresh
 
 class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
     
     var tweets: [Tweet]?
     @IBOutlet weak var tableView: UITableView!
-//    var isMoreDataLoading = false
-//    var pages: Int = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+
+        
         let image = UIImageView(image: UIImage(named: "Twitter_logo"))
         self.navigationItem.titleView = image
         
@@ -76,6 +77,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
     }
@@ -89,7 +94,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let user = tweet.user
             cell.usernameLabel.text = user?.name
             cell.profileImage.setImageWithURL(NSURL(string: (user?.profileImageUrl)!)!)
-            cell.screenName.text = user?.screenName
+            cell.screenName.text = "@\((user?.screenName)!)"
             cell.tweetLabel.text = tweet.text
             
             let time = Int((tweet.createdAt?.timeIntervalSinceNow)!)
@@ -119,13 +124,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
                 cell.likeCountLabel.text = "\(tweet.likeCount!)"
             }
             
-            
             cell.tweet = tweet
         }
         
         cell.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
         return cell
     }
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let tweets = tweets {
@@ -135,15 +140,44 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
 
-    /*
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("displayTweet", sender: indexPath)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "displayTweet") {
+            let vc = segue.destinationViewController as! TweetDetailViewController
+            let indexPath = sender as! NSIndexPath
+            
+            vc.tweet = self.tweets![indexPath.row]
+        
+        
+        }
+//        if (segue.identifier == "displayProfile") {
+//                let vc = segue.destinationViewController as! TweetDetailViewController
+//                let indexPath = sender as! NSIndexPath
+//                
+//                vc.tweet = self.tweets![indexPath.row]
+//
+//        }
     }
-    */
+    
+    @IBAction func onNew(sender: AnyObject) {
+        performSegueWithIdentifier("displayNew", sender: self)
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        TwitterClient.sharedInstance.homeTimeLineWithParams(nil, completion: { (tweets, error) -> () in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        })
+    }
 
 }
 

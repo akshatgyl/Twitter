@@ -14,7 +14,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CSStickyHeaderFlowLayout.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DGElasticPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>EGFloatingTextField.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -25,6 +35,11 @@
 			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PureLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,22 +62,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>30C445E6D8703D94CB06D42EB47820DE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>445B3D47256376A8FB06D383FDBEA0C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4C291E1E126CF1C1F239A945B2D01EEC</key>
+		<key>55618EEF014467516D0E0C3C02E54A28</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5A07A2762783D62C5C58EAB14036DF7B</key>
+		<key>7D186A29BFE5CC12963FE307FA572F63</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DB92D09189EEBE613C4EAC50E55E9931</key>
+		<key>CECFFF85F6389BCB6022141DC81F6BF1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E704FDEDA8FD9395D3F001EE8DFF7448</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E76A3C72BB8C21DF9CE8875298844E1F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

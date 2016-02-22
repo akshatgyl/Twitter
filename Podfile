@@ -7,6 +7,8 @@ pod “AFNetworking”
 pod “BDBOAuth1Manager”
 pod "DGElasticPullToRefresh"
 pod 'SVPullToRefresh'
+pod ‘CSStickyHeaderFlowLayout’
+pod "EGFloatingTextField"
 
 target 'Twitter-490' do
 
